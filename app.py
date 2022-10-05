@@ -23,7 +23,6 @@ import gspread
 import discord
 import json
 import os
-# .envファイルの内容を読み込見込む
 TOKEN = os.environ['TOKEN']
 GUILD_ID = os.environ['GUILD_ID']
 CHANNEL_ID = os.environ['CHANNEL_ID']
