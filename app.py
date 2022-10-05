@@ -23,7 +23,6 @@ import gspread
 import discord
 import json
 import os
-from dotenv import load_dotenv
 # .envファイルの内容を読み込見込む
 load_dotenv()
 TOKEN = os.environ['TOKEN']
