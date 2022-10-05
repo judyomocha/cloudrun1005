@@ -12,3 +12,4 @@ pip install --upgrade pip
 pip install google
 pip install gspread
 pip install oauth2client
+pip3 install python-dotenv
