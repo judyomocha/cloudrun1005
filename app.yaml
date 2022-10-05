@@ -21,10 +21,9 @@ on:
 env:
   SPREADSHEET_KEY: ${{ secrets.SPREADSHEET_KEY }}
   CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-  GUILD_ID: ${{ secrets.GUILD_ID }}
   TOKEN: ${{ secrets.TOKEN }}
   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-  GCP_SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
+  SHEET_NAME: ${{ secrets.SHEET_NAME }}
 
 jobs:
   delivery:
