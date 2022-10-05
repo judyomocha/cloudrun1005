@@ -1,0 +1,61 @@
+runtime: python310
+env: standard
+instance_class: F1
+service: default
+entrypoint: gunicorn --workers 1 --threads 8 app.server:app
+automatic_scaling:
+  max_instances: 1
+  max_idle_instances: 1
+  min_instances: 0
+  min_idle_instances: 0
+  min_pending_latency: 3000ms
+  max_pending_latency: automatic
+
+name: Delivery
+
+on: 
+  push:
+    branches:
+      - master
+
+env:
+  SPREADSHEET_KEY: ${{ secrets.SPREADSHEET_KEY }}
+  CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+  GUILD_ID: ${{ secrets.GUILD_ID }}
+  TOKEN: ${{ secrets.TOKEN }}
+  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+  GCP_SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
+
+jobs:
+  delivery:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v1
+
+      - name: GCP Authenticate
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '273.0.0'
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+
+      - name: Configure docker to use the gcloud cli
+        run: gcloud auth configure-docker --quiet
+
+      - name: Build a docker image
+        run: docker build . -t $IMAGE
+
+      - name: Push the docker image
+        run: docker push $IMAGE
+
+      - name: Deploy to Cloud Run
+        run: |
+            gcloud run deploy foobar \
+              --image $IMAGE \
+              --project $GCP_PROJECT \
+              --region $GCP_REGION \
+              --platform managed \
+              --quiet
