@@ -1,3 +1,4 @@
+  
   import os
   import discord
   import python-dotenv
@@ -23,3 +24,6 @@ sudo add-apt-repository ppa:mc3man/trusty-media
 sudo apt-get update
 sudo apt-get dist-upgrade -y
 sudo apt-get -y install ffmpeg
+pip install google.cloud
+pip install structlog
+pip install python-dotenv
