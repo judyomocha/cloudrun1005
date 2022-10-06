@@ -19,14 +19,9 @@ on:
       - master
 
 env:
-  SPREADSHEET_KEY: ${{ secrets.SPREADSHEET_KEY }}
-  CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
   TOKEN: ${{ secrets.TOKEN }}
   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-  COEFONT_KEY: ${{ secrets.COEFONT_KEY }}
   GCP_SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
-  COEFONT_SECRET: ${{ secrets.COEFONT_SECRET }}
-  SHEET_NAME: ${{ secrets.SHEET_NAME }}
 
 
 jobs:
