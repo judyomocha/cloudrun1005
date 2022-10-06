@@ -12,22 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import signal
-import sys
-from types import FrameType
-from flask import Flask
-from utils.logging import logger
-app = Flask(__name__)
-from google.oauth2.service_account import Credentials
 import json
-import os
-import traceback
-import hmac
-import hashlib
-import requests
 import discord
-import html
-from google.cloud import speech
+import os
+import pickle
+import numpy as np
 from discord.channel import VoiceChannel
 from discord.player import FFmpegPCMAudio
 from google.cloud import texttospeech
@@ -37,15 +26,44 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 TOKEN = os.environ['TOKEN']
-GCP_SA_KEY = os.environ['GCP_SA_KEY']
-
-parsed = json.loads(GCP_SA_KEY)
+EDEN_TOKEN = os.environ['EDEN_TOKEN']
 
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
 voiceChannel: VoiceChannel 
+
+
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+
+
+def get_credentials(client_secret_file, scopes,
+                    token_storage_pkl='token.pickle'):
+    creds = None
+    # token.pickleファイルにユーザのアクセス情報とトークンが保存される
+    # ファイルは初回の認証フローで自動的に作成される
+    if os.path.exists(token_storage_pkl):
+        with open(token_storage_pkl, 'rb') as token:
+            creds = pickle.load(token)
+
+    # 有効なクレデンシャルがなければ、ユーザーにログインしてもらう
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                client_secret_file, scopes=scopes)
+            creds = flow.run_local_server(port=0)
+
+        # クレデンシャルを保存（次回以降の認証のため）
+        with open(token_storage_pkl, 'wb') as token:
+            pickle.dump(creds, token)
+
+    return creds
+
 
 @client.event
 async def on_ready():
@@ -69,6 +87,36 @@ async def on_message(message):
 
     play_voice(message.content)
 
+ # Instantiates a client
+client = texttospeech.TextToSpeechClient()
+
+# Set the text input to be synthesized
+synthesis_input = texttospeech.SynthesisInput(message.content)
+
+# Build the voice request, select the language code ("en-US") and the ssml
+# voice gender ("neutral")
+voice = texttospeech.VoiceSelectionParams(
+    language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+)
+
+# Select the type of audio file you want returned
+audio_config = texttospeech.AudioConfig(
+    audio_encoding=texttospeech.AudioEncoding.MP3
+)
+
+# Perform the text-to-speech request on the text input with the selected
+# voice parameters and audio file type
+response = client.synthesize_speech(
+    input=synthesis_input, voice=voice, audio_config=audio_config
+)
+
+# The response's audio_content is binary.
+with open("output.mp3", "wb") as out:
+    # Write the response to the output file.
+    out.write(response.audio_content)
+    print('Audio content written to file "output.mp3"')
+   
+ 
 def text_to_ssml(text):
     escaped_lines = html.escape(text)
     ssml = "{}".format(
