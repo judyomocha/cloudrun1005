@@ -27,6 +27,7 @@ import hashlib
 import requests
 import discord
 import html
+from google.cloud import speech
 from discord.channel import VoiceChannel
 from discord.player import FFmpegPCMAudio
 from google.cloud import texttospeech
