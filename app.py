@@ -39,7 +39,7 @@ gc = gspread.service_account_from_dict(parsed)
 sh = gc.open_by_key(SPREADSHEET_KEY)
 ws = sh.worksheet(SHEET_NAME)
 list_of_lists = ws.get_all_values()
-i = len(list_of_lists[0])
+i = len(list_of_lists[1])
 
 intents = discord.Intents.default()
 intents.message_content = True
