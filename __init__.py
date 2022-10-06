@@ -7,6 +7,7 @@
   import json
 pip install google-cloud-storage
 pip install google-cloud-speech
+pip install --upgrade google-cloud-texttospeech
 pip install --upgrade pydata-google-auth
 pip install google-api-python-client
 pip install --upgrade pip
