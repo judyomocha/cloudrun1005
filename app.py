@@ -33,6 +33,8 @@ from discord.player import FFmpegPCMAudio
 from google.cloud import texttospeech
 from discord.ext import commands
 from discord.channel import VoiceChannel
+from dotenv import load_dotenv
+load_dotenv(override=True)
 
 TOKEN = os.environ['TOKEN']
 GCP_SA_KEY = os.environ['GCP_SA_KEY']
