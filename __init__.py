@@ -25,3 +25,4 @@ pip3 install PyNaCl library
 pip install numpy
 pip install pydub
 sudo apt-get -y install ffmpeg
+pip install aiohttp
