@@ -27,3 +27,4 @@ pip install numpy
 pip install pydub
 sudo apt-get -y install ffmpeg
 pip3 install aiohttp
+pip install yarl
