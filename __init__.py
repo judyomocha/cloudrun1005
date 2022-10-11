@@ -4,6 +4,7 @@
   import load_dotenv
   import requests
   import json
+  import aiohttp
 
 pip install --upgrade pydata-google-auth
 pip install google-api-python-client
@@ -25,4 +26,4 @@ pip3 install PyNaCl library
 pip install numpy
 pip install pydub
 sudo apt-get -y install ffmpeg
-pip install aiohttp
+pip3 install aiohttp
