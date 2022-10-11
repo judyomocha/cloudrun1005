@@ -28,6 +28,7 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.environ['TOKEN']
 GCP_SA_KEY = os.environ['GCP_SA_KEY']
+GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 
 
 intents: Intents = discord.Intents.all()
