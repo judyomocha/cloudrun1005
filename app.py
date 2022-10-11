@@ -19,7 +19,6 @@ from flask import Flask
 from utils.logging import logger
 app = Flask(__name__)
 from google.oauth2.service_account import Credentials
-import gspread
 import discord
 import json
 import os
