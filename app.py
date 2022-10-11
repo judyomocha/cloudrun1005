@@ -26,8 +26,6 @@ from dotenv import load_dotenv
 # .envファイルの内容を読み込見込む
 load_dotenv()
 TOKEN = os.environ['TOKEN']
-GCP_SA_KEY = os.environ['GCP_SA_KEY']
-GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 
 
 intents: Intents = discord.Intents.all()
