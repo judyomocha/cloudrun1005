@@ -19,11 +19,10 @@ on:
       - master
 
 env:
-  SPREADSHEET_KEY: ${{ secrets.SPREADSHEET_KEY }}
-  CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
   TOKEN: ${{ secrets.TOKEN }}
+  GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+  GCP_SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-  SHEET_NAME: ${{ secrets.SHEET_NAME }}
 
 jobs:
   delivery:
