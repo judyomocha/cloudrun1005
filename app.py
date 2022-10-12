@@ -22,7 +22,17 @@ from google.oauth2.service_account import Credentials
 import discord
 import json
 import os
+from gtts import gTTS
 from dotenv import load_dotenv
+from collections import defaultdict, deque
+from pathlib import Path
+from discord import Intents
+from google.cloud import texttospeech
+from apiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from discord.player import FFmpegPCMAudio
+from discord.channel import VoiceChannel
 # .envファイルの内容を読み込見込む
 load_dotenv()
 TOKEN = os.environ['TOKEN']
