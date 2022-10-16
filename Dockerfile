@@ -17,7 +17,7 @@ FROM python:3.7
 ENV PYTHONUNBUFFERED 1
 
 # Create and change to the app directory.
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app.py
 
 # Copy application dependency manifests to the container image.
 # Copying this separately prevents re-running pip install on every code change.
