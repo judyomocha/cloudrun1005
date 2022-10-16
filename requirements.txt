@@ -5,3 +5,4 @@ requests==2.28.1
 structlog==22.1.0
 discord
 google-auth==2.3.2
+python-dotenv
