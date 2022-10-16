@@ -56,7 +56,7 @@ async def on_message(message):
 
     if message.channel.id == int(CHANNEL_ID):
         ws.update_cell(i,1,message.content )
-        print(message.id') 
-        await message.channel.send(message.id) 
+        print(message.id) 
+        await message.channel.send(message.id)
 
 client.run(TOKEN)
