@@ -38,11 +38,9 @@ parsed = json.loads(GCP_SA_KEY)
 gc = gspread.service_account_from_dict(parsed)
 sh = gc.open_by_key(SPREADSHEET_KEY)
 ws = sh.worksheet(SHEET_NAME)
-list_of_lists = ws.get_all_values()
-i = len(list_of_lists[0])+1
+
 
 intents = discord.Intents.default()
-intents.message_content = True
 client = discord.Client(intents=intents)
 
 
@@ -55,12 +53,14 @@ async def on_message(message):
         return
 
     if message.channel.id == int(CHANNEL_ID):
-        ws.update_cell(i+1,1,message.content )
-        print(f'更新します @{message.author}!') 
+        data = message.content
+
+        def next_available_row(ws):
+            str_list = list(filter(None, ws.col_values(1)))
+            return str(len(str_list) + 1)
+        next_row = next_available_row(ws)
+
+        ws.update_cell(next_row, 1, data)
         await message.channel.send(f'更新します {message.author}!') 
         
-        
-        
-        
-
 client.run(TOKEN)
