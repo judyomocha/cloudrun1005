@@ -56,7 +56,7 @@ async def on_message(message):
 
     if message.channel.id == int(CHANNEL_ID):
         ws.update_cell(i,1,message.content )
-        print(f'更新します @{message.author}!') 
-        await message.channel.send(f'更新します {message.author}!') 
+        print(message.id') 
+        await message.channel.send(message.id) 
 
 client.run(TOKEN)
