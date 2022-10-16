@@ -25,6 +25,7 @@ COPY requirements.txt ./
 
 # Install dependencies.
 RUN pip install -r requirements.txt
+RUN sudo apt install gunicorn
 
 # Copy local code to the container image.
 COPY . ./
