@@ -23,11 +23,9 @@ import gspread
 import discord
 import json
 import os
-from dotenv import load_dotenv
-# .envファイルの内容を読み込見込む
-load_dotenv()
+
+
 TOKEN = os.environ['TOKEN']
-GUILD_ID = os.environ['GUILD_ID']
 CHANNEL_ID = os.environ['CHANNEL_ID']
 SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 GCP_SA_KEY = os.environ['GCP_SA_KEY']
